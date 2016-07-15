@@ -10,6 +10,8 @@
     <string name="question_2_rawin">Rawin is happy ?</string>
     <string name="question_3_math">2+2 = 5 ?</string> <!--false-->
     <string name="question_4_mars">Mars doesn\'t have moon ?</string>
+    <string name="question_5_math">2+3 = 5 ?</string>
+    <string name="question_6_therdsak">Therdsak play basketball ?</string>
     <string name="previous_button">Previous</string>
     <string name="cheat_button">Cheat</string>
     <string name="answer_is_true">True</string>

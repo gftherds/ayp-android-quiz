@@ -6,6 +6,7 @@ package com.augmentis.ayp.aypquiz;
 public class Question {
     private int questionId;
     private boolean answer;
+    private boolean cheated;
 
     public int getQuestionId() {
         return questionId;
@@ -22,9 +23,18 @@ public class Question {
     public Question(int questionId, boolean answer) {
         this.questionId = questionId;
         this.answer = answer;
+        this.cheated = false;
     }
 
     public boolean getAnswer() {
         return answer;
+    }
+
+    public boolean getCheated() {
+        return cheated;
+    }
+
+    public void setCheated(boolean cheated) {
+        this.cheated = cheated;
     }
 }

@@ -13,6 +13,7 @@ import android.widget.Toast;
 public class QuizActivity extends AppCompatActivity {
 
     private static final int REQUEST_CHEATED = 135 ;
+    private static final String SAVECHEATER = "savecheater";
     Button trueButton;
     Button falseButton;
     Button nextButton;
@@ -21,11 +22,16 @@ public class QuizActivity extends AppCompatActivity {
 
     TextView questionText;
 
+
+
     Question[] questions = new Question[]{
-            new Question(R.string.question_1_nile, true),
+
+            new Question(R.string.question_1_nile, true ),
             new Question(R.string.question_2_rawin, true),
             new Question(R.string.question_3_math, false),
-            new Question(R.string.question_4_mars, false)
+            new Question(R.string.question_4_mars, false),
+            new Question(R.string.question_5_math,true),
+            new Question(R.string.question_6_therdsak,true)
     };
 
     int currentIndex;
@@ -75,6 +81,7 @@ public class QuizActivity extends AppCompatActivity {
         super.onSaveInstanceState(outState);
         Log.d(TAG,"State is saving");
         outState.putInt(Index,currentIndex);
+        outState.putBoolean(SAVECHEATER, isCheater);
     }
 
     @Override
@@ -91,6 +98,7 @@ public class QuizActivity extends AppCompatActivity {
         questionText = (TextView) findViewById(R.id.text_question);
 
         if(savedInstanceState != null) {
+            isCheater = savedInstanceState.getBoolean(SAVECHEATER);
             currentIndex = savedInstanceState.getInt(Index, 0);
         }else{
             currentIndex = 0 ;
@@ -98,15 +106,15 @@ public class QuizActivity extends AppCompatActivity {
 
 
         updateQuestion();
-        resetCheater();
-        updateQuestion();
+       // resetCheater();
+//        updateQuestion();
         trueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 checkAnswer(true);
             }
         });
-        
+
 
         falseButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -124,7 +132,7 @@ public class QuizActivity extends AppCompatActivity {
 
                if (currentIndex == questions.length) currentIndex = 0;
                 currentIndex++;
-                resetCheater();
+               // resetCheater();
                 updateQuestion();
                 updateQuestion();
             }
@@ -136,7 +144,7 @@ public class QuizActivity extends AppCompatActivity {
                 currentIndex --;
                 resetCheater();
                 updateQuestion();
-                updateQuestion();
+//                updateQuestion();
             }
         });
         cheatButton.setOnClickListener(new View.OnClickListener() {
@@ -152,19 +160,20 @@ public class QuizActivity extends AppCompatActivity {
 
             }
         });
-        
+
         Log.d(TAG,"On Create");
     }
 
     private void resetCheater() {
+
     }
 
     private void isCheater(){
         isCheater =false;
     }
-    
+
     public void updateQuestion(){
-        
+
         questionText.setText(questions[currentIndex].getQuestionId());
     }
 
@@ -190,11 +199,11 @@ public class QuizActivity extends AppCompatActivity {
         }else{
             if (answer == correctAnswer){
                 result = R.string.correct_text;
-                
+
             }else{
                 result = R.string.incorrect_text;
             }
-            
+
         }
         Toast.makeText(QuizActivity.this, result, Toast.LENGTH_SHORT).show();
         
