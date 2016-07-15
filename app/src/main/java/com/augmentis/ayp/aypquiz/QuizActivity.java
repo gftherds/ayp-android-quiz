@@ -1,5 +1,6 @@
 package com.augmentis.ayp.aypquiz;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -13,6 +14,7 @@ public class QuizActivity extends AppCompatActivity {
     Button trueButton;
     Button falseButton;
     Button nextButton;
+    Button cheatButton;
     Button previousButton;
 
     TextView questionText;
@@ -28,6 +30,8 @@ public class QuizActivity extends AppCompatActivity {
 
     private static  final String TAG = "AYPQUIZ";
     private static  final String Index = "Index";
+
+
     public QuizActivity() {
         super();
     }
@@ -80,7 +84,7 @@ public class QuizActivity extends AppCompatActivity {
         falseButton = (Button) findViewById(R.id.false_button);
         nextButton = (Button) findViewById(R.id.next_button);
         previousButton = (Button) findViewById(R.id.previous_button);
-
+        cheatButton = (Button) findViewById(R.id.cheat_button);
         questionText = (TextView) findViewById(R.id.text_question);
 
         if(savedInstanceState != null) {
@@ -113,7 +117,7 @@ public class QuizActivity extends AppCompatActivity {
 //                }
 //                currentIndex = (currentIndex + 1) % questions.length;
 
- //               if (currentIndex == questions.length) currentIndex = 0;
+               if (currentIndex == questions.length) currentIndex = 0;
                 currentIndex++;
                 updateQuestion();
             }
@@ -126,7 +130,19 @@ public class QuizActivity extends AppCompatActivity {
                 updateQuestion();
             }
         });
+        cheatButton.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                //
+                Intent intent = new Intent(QuizActivity.this,CheatActivity.class);
+                startActivity(intent);
+
+            }
+        });
+        Log.d(TAG,"On Create");
     }
+
 
     public void updateQuestion(){
 

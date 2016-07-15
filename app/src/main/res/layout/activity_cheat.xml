@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center"
+    tools:context="com.augmentis.ayp.aypquiz.CheatActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textSize="36dp"
+        android:id="@+id/text_annwer"
+        tools:text="Answer here"/>
+
+        />
+
+    <Button
+        android:id="@+id/confirm_button"
+        android:layout_gravity="bottom|center_horizontal"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:text="confirm button"
+        />
+
+
+</FrameLayout>
