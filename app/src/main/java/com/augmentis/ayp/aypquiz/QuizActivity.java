@@ -112,8 +112,9 @@ public class QuizActivity extends AppCompatActivity {
 //                    currentIndex=0;
 //                }
 //                currentIndex = (currentIndex + 1) % questions.length;
+
+ //               if (currentIndex == questions.length) currentIndex = 0;
                 currentIndex++;
-                if (currentIndex == questions.length) currentIndex = 0;
                 updateQuestion();
             }
         });
