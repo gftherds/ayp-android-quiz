@@ -1,5 +1,6 @@
 package com.augmentis.ayp.aypquiz;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,6 +12,7 @@ import android.widget.Toast;
 
 public class QuizActivity extends AppCompatActivity {
 
+    private static final int REQUEST_CHEATED = 135 ;
     Button trueButton;
     Button falseButton;
     Button nextButton;
@@ -30,6 +32,7 @@ public class QuizActivity extends AppCompatActivity {
 
     private static  final String TAG = "AYPQUIZ";
     private static  final String Index = "Index";
+    private boolean isCheater;
 
 
     public QuizActivity() {
@@ -95,13 +98,15 @@ public class QuizActivity extends AppCompatActivity {
 
 
         updateQuestion();
-
+        resetCheater();
+        updateQuestion();
         trueButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 checkAnswer(true);
             }
         });
+        
 
         falseButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -119,6 +124,8 @@ public class QuizActivity extends AppCompatActivity {
 
                if (currentIndex == questions.length) currentIndex = 0;
                 currentIndex++;
+                resetCheater();
+                updateQuestion();
                 updateQuestion();
             }
         });
@@ -127,6 +134,8 @@ public class QuizActivity extends AppCompatActivity {
             public void onClick(View v) {
                 if (currentIndex == 0 ) currentIndex=4;
                 currentIndex --;
+                resetCheater();
+                updateQuestion();
                 updateQuestion();
             }
         });
@@ -135,26 +144,60 @@ public class QuizActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 //
-                Intent intent = new Intent(QuizActivity.this,CheatActivity.class);
-                startActivity(intent);
+
+//                Intent intent = CheatActivity.createIntent(QuizActivity.this, getCurrentFocus());
+//                startActivity(intent);
+             Intent intent = new Intent(QuizActivity.this,CheatActivity.class);intent.putExtra("NAME", questions[currentIndex].getAnswer());
+               startActivityForResult(intent, REQUEST_CHEATED);
 
             }
         });
+        
         Log.d(TAG,"On Create");
     }
 
+    private void resetCheater() {
+    }
 
+    private void isCheater(){
+        isCheater =false;
+    }
+    
     public void updateQuestion(){
-
+        
         questionText.setText(questions[currentIndex].getQuestionId());
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent dataIntent) {
+        if (resultCode != Activity.RESULT_OK) {
+            return;
+        }
+        if (requestCode == REQUEST_CHEATED) {
+            if (dataIntent == null) {
+                return;
+            }
+            isCheater = CheatActivity.wasCheated(dataIntent);
+        }
     }
 
     public void checkAnswer(boolean answer) {
 
         boolean correctAnswer = questions[currentIndex].getAnswer();
-        int result = (answer == correctAnswer) ? R.string.correct_text : R.string.incorrect_text;
+        int result;
+        if(isCheater) {
+            result = R.string.cheater_text;
+        }else{
+            if (answer == correctAnswer){
+                result = R.string.correct_text;
+                
+            }else{
+                result = R.string.incorrect_text;
+            }
+            
+        }
         Toast.makeText(QuizActivity.this, result, Toast.LENGTH_SHORT).show();
-
+        
         /*if (answer == correctAnswer) {
             //click True
             result = R.string.correct_text;

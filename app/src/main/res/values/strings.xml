@@ -12,5 +12,8 @@
     <string name="question_4_mars">Mars doesn\'t have moon ?</string>
     <string name="previous_button">Previous</string>
     <string name="cheat_button">Cheat</string>
+    <string name="answer_is_true">True</string>
+    <string name="answer_is_false">False</string>
+    <string name="cheater_text">gg</string>
 
 </resources>

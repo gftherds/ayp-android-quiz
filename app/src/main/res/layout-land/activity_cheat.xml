@@ -15,7 +15,7 @@
         android:id="@+id/text_answer"
         tools:text="Answer here"/>
 
-        />
+    />
 
     <Button
         android:id="@+id/confirm_button"
